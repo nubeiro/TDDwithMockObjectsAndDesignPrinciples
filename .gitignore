@@ -12,3 +12,5 @@ _ReSharper*/
 # IDEA
 .idea/
 *.iml
+composer.phar
+vendor/
