@@ -1,8 +1,8 @@
 <?php
 
-include "Sensor.php"
-
 namespace TDDMicroExercises\PHP\TirePressureMonitoringSystem;
+
+require_once "Sensor.php";
 
 class Alarm
 {
@@ -13,8 +13,8 @@ class Alarm
 	private $alarmOn;
 	private $alarmCount;
 
-	public function __construct() {
-		$this->sensor 		= new Sensor();
+	public function __construct(Sensor $sensor) {
+		$this->sensor 		= $sensor;
 		$this->alarmOn 		= false;
 		$this->alarmCount	= 0;		
 	}
