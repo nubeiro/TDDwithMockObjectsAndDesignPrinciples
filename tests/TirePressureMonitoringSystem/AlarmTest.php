@@ -16,8 +16,8 @@ class AlarmTest extends PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->sensorMock = $this->getMockBuilder('\TDDMicroExercises\PHP\TirePressureMonitoringSystem\Sensor')
-            ->setMethods(array('popNextPressurePsiValue'))
+        $this->sensorMock = $this->getMockBuilder('\TDDMicroExercises\PHP\TirePressureMonitoringSystem\SensorInterface')
+            ->setMethods(array('popNextPressurePsiValue', 'SamplePressure'))
             ->getMock();
         $this->objectToTest = new Alarm($this->sensorMock);
     }
@@ -83,4 +83,6 @@ class AlarmTest extends PHPUnit_Framework_TestCase
             "Wrong internal alarm value"
         );
     }
+
+
 }
