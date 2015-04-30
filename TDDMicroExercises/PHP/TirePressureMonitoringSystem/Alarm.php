@@ -13,7 +13,7 @@ class Alarm
 	private $alarmOn;
 	private $alarmCount;
 
-	public function __construct(Sensor $sensor) {
+	public function __construct(SensorInterface $sensor) {
 		$this->sensor 		= $sensor;
 		$this->alarmOn 		= false;
 		$this->alarmCount	= 0;		

@@ -2,7 +2,7 @@
 
 namespace TDDMicroExercises\PHP\TirePressureMonitoringSystem;
 
-class Sensor 
+class Sensor implements SensorInterface
 {
 	const OFFSET = 16;
 
