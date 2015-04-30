@@ -1,6 +1,11 @@
 <?php
-
+/**
+ * @todo write unit tests
+ *       refactor as much as needed to make the class testable.
+ */
 namespace TDDMicroExercises\PHP\UnicodeFileToHtmlTextConverter;
+
+include_once 'FileReader.php';
 
 class UnicodeFileToHtmlTextConverter 
 {
@@ -13,17 +18,26 @@ class UnicodeFileToHtmlTextConverter
 
     public function convertToHtml()
     {
-        $unicodeFileStrem = fopen($this->_fullFilenameWithPath, 'r+');
-        $html = '';
+        $fileReader = new FileReader($this->_fullFilenameWithPath);
 
-        while ( $line = fgets($unicodeFileStrem)) 
+        $fileReader->openFile();
+
+        $html = array();
+
+        while ( $line = $fileReader->getLineFromFile())
         {
-            $html .= htmlentities($line);
-            $html .= "<br />";
+            $html[] = $line;
         }
 
-        fclose($unicodeFileStrem);
+        $output = '';
+        foreach ($html as $line) {
+            $output .= htmlentities($line);
+            $output .= '<br />';
+        }
 
-        return $html;
+
+        $fileReader->closeFile();
+
+        return $output;
     }
 }
