@@ -9,34 +9,24 @@ include_once 'FileReader.php';
 
 class UnicodeFileToHtmlTextConverter 
 {
-    private $_fullFilenameWithPath;
+    protected $fileReader;
 
-    public function __construct($fullFilenameWithPath)
+    public function __construct(FileReaderInterface $fileReader)
     {
-        $this->_fullFilenameWithPath = $fullFilenameWithPath;
+        $this->fileReader = $fileReader;
     }
 
     public function convertToHtml()
     {
-        $fileReader = new FileReader($this->_fullFilenameWithPath);
-
-        $fileReader->openFile();
-
-        $html = array();
-
-        while ( $line = $fileReader->getLineFromFile())
-        {
-            $html[] = $line;
+        $html = $this->fileReader->getContents();
+        if (empty($html)) {
+            throw new \Exception('Could not read file contents.');
         }
-
         $output = '';
         foreach ($html as $line) {
             $output .= htmlentities($line);
             $output .= '<br />';
         }
-
-
-        $fileReader->closeFile();
 
         return $output;
     }

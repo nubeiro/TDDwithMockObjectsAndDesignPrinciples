@@ -6,7 +6,8 @@ namespace TDDMicroExercises\PHP\UnicodeFileToHtmlTextConverter;
  * FileReader
  */
 
-class FileReader {
+class FileReader implements FileReaderInterface
+{
 
     private $filePath;
     protected $filePointer;
@@ -19,27 +20,39 @@ class FileReader {
     /**
      * @return resource
      */
-    public function openFile()
+    private function openFile()
     {
         $this->filePointer = fopen($this->filePath, 'r+');
         return $this->filePointer;
     }
 
     /**
-     * @param $unicodeFileStrem
-     *
      * @return string
      */
-    public function getLineFromFile()
+    private function getLineFromFile()
     {
         return fgets($this->filePointer);
     }
 
-    /**
-     * @param $unicodeFileStrem
-     */
-    public function closeFile()
+    private function closeFile()
     {
         fclose($this->filePointer);
     }
+
+    /**
+     * Returns array of lines.
+     *
+     * @return array
+     */
+    public function getContents()
+    {
+        $this->openFile();
+        $lines = array();
+        while ($line = $this->getLineFromFile()) {
+            $lines[] = $line;
+        }
+        $this->closeFile();
+        return $lines;
+    }
+
 }
